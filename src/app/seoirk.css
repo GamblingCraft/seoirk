@@ -80,6 +80,10 @@ input,textarea{text-transform:none}
 
 /* Script wordmark, supplied as a real transparent image rather than live text. */
 .sk-logo-image{display:block;width:100%;height:auto;object-fit:contain}
+.sk-logo-hologram{display:block;position:relative;width:100%;isolation:isolate}
+.sk-logo-hologram>i{position:absolute;inset:0;pointer-events:none;mask:url('/assets/seoirk-script-logo.png') center/contain no-repeat;background:repeating-linear-gradient(0deg,transparent 0 2px,#fff6 3px,transparent 4px),linear-gradient(115deg,#3478ff,#19d7d2,#e5c0ff,#fff,#696aff,#19d7d2);background-size:100% 100%,300% 100%;mix-blend-mode:multiply;opacity:.65;animation:sk-logo-spectrum 6s linear infinite;transition:opacity .3s}
+.sk-logo-hologram:hover>i,.sk-orbit-content .sk-logo-hologram>i{opacity:.95}
+@keyframes sk-logo-spectrum{0%{background-position:0 0,0% 50%;filter:hue-rotate(0deg)}100%{background-position:0 8px,100% 50%;filter:hue-rotate(360deg)}}
 .sk-brand{width:160px;font-size:0;line-height:0;letter-spacing:0}
 .sk-header>.sk-brand{width:130px}
 .sk-about-heading>div>.sk-brand{width:270px}
@@ -98,3 +102,40 @@ input,textarea{text-transform:none}
  .sk-device-logo,.sk-screen-nav b{width:85px}
  .sk-orbit-content b{width:230px}
 }
+
+/* Classic navigation with the phone anchored at the right edge. */
+.sk-header{display:flex;align-items:center;gap:48px;padding-top:22px;padding-bottom:18px}
+.sk-header>.sk-brand{flex:0 0 130px}
+.sk-header nav{display:flex;align-items:center;gap:36px;margin-left:auto}
+.sk-header nav a,.sk-header-phone{font-size:13px;font-weight:600;letter-spacing:.01em;white-space:nowrap}
+.sk-header nav a{position:relative;padding:8px 0}
+.sk-header nav a:after{content:'';position:absolute;bottom:2px;left:0;right:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.sk-header nav a:hover:after,.sk-header nav a:focus-visible:after{transform:scaleX(1)}
+.sk-header-phone{font-variant-numeric:tabular-nums;padding:8px 0}
+.sk-header-phone:hover{color:#1ccecb}
+
+.sk-detail-heading,.sk-interior-heading{position:relative}
+.sk-detail-heading>.sk-section-eyebrow,.sk-interior-heading>.sk-section-eyebrow{position:absolute;display:block;left:24px;top:0;width:max-content;margin:0;font-family:var(--font-seoirk-eyebrow);font-size:clamp(14px,1.5vw,24px);font-weight:400;line-height:1;letter-spacing:.14em;color:#969696;writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap;transform:rotate(180deg)}
+.sk-contacts-top>div.sk-interior-heading{grid-column:1/7;padding-left:calc(16.667vw - 10px)}
+.sk-missing-page{padding-left:110px}
+.sk-missing-page>.sk-section-eyebrow{top:80px}
+@media(max-width:1023px){
+ .sk-header{gap:28px}
+ .sk-header nav{gap:24px}
+ .sk-header nav a,.sk-header-phone{font-size:12px}
+ .sk-contacts-top>div.sk-interior-heading{grid-column:1/3;padding-left:48px}
+ .sk-interior-heading>.sk-section-eyebrow,.sk-detail-heading>.sk-section-eyebrow{left:20px;font-size:14px}
+ .sk-detail-heading{padding-left:48px}
+ .sk-missing-page{padding-left:48px}
+}
+@media(max-width:639px){
+ .sk-header{flex-wrap:wrap;justify-content:space-between;gap:18px 12px;padding-top:18px}
+ .sk-header>.sk-brand{flex-basis:112px}
+ .sk-header nav{order:3;width:100%;justify-content:space-between;margin:0;gap:16px;padding-top:8px;border-top:1px solid #ffffff20}
+ .sk-header nav a{font-size:12px}
+ .sk-header-phone{font-size:13px}
+ .sk-contacts-top>div.sk-interior-heading{grid-column:1/5}
+ .sk-interior-heading>.sk-section-eyebrow,.sk-detail-heading>.sk-section-eyebrow{font-size:12px;letter-spacing:.13em}
+ .sk-missing-page>.sk-section-eyebrow{top:65px}
+}
+@media(prefers-reduced-motion:reduce){.sk-logo-hologram>i{animation:none}}
