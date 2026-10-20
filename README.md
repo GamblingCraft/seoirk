@@ -36,7 +36,7 @@ Production-сборка находится в `out`. Команда preview ра
 
 Организация следует официальным материалам Next.js: [структура проекта](https://nextjs.org/docs/app/getting-started/project-structure), [layout и страницы](https://nextjs.org/docs/app/getting-started/layouts-and-pages), [статический экспорт](https://nextjs.org/docs/app/guides/static-exports). Серверный HTML страниц доступен до загрузки анимаций; клиентские события вынесены в отдельную границу `use client`. Слушатели, таймеры, observers и WebGL очищаются при смене маршрута.
 
-Стек: Next.js 16.4.2, React 19.2.4, Lenis 1.3.27, собственные CSS/SVG/WebGL-эффекты. Шрифты локальные. Внешние CDN и сторонние трекеры не подключены.
+Стек: Next.js 16.4.2, React 19.2.4, Lenis 1.3.27, собственные CSS/SVG/WebGL-эффекты. Inter и Cormorant Garamond подключены из Google Fonts через `next/font/google` с наборами latin и cyrillic; файлы включаются в локальную production-сборку. Внешние CDN и сторонние трекеры не подключены.
 
 ## Перед реальным запуском
 
@@ -50,3 +50,5 @@ Production-сборка находится в `out`. Команда preview ра
 Контент блока поведенческих факторов включает ссылку на [справку Яндекса](https://yandex.ru/support/webmaster/ru/threat/user-actions-imitation) и не обещает гарантированные позиции.
 
 SEO-портфолио находится после блока поведенческих факторов: на desktop превью слева, названия справа, на mobile — сетка карточек. Оба портфолио используют `SeoirkPortfolio` и отдельные WebGL-контроллеры. Данные SEO-кейсов находятся в `seoirkSeoProjects`.
+
+Типографика: Inter 100–900 для кириллицы и латиницы, рабочие веса 500/600; Cormorant Garamond 700 для логотипа. Выбор и настройки находятся в `src/app/seoirk-fonts.js`. Основная гарнитура совпадает с гарнитурой референса.
