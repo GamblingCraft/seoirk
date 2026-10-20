@@ -9,6 +9,9 @@ export function startSeoirkMotion({pathname,navigate}) {
  const later=(fn,ms)=>{const timer=setTimeout(()=>{timers.delete(timer);if(!signal.aborted)fn();},ms);timers.add(timer);return timer;};
  const on=(el,type,fn,opts={})=>el?.addEventListener(type,fn,{...opts,signal});
  const loader=$('#sk-preloader'),wipe=$('#sk-page-wipe'),body=document.body;
+ const updateScrollbar=()=>{const range=document.documentElement.scrollHeight-innerHeight;document.documentElement.style.setProperty('--sk-scrollbar-phase',`${range>0?Math.min(100,Math.max(0,scrollY/range*100)):0}%`);};
+ if(!reduced){on(window,'scroll',updateScrollbar,{passive:true});on(window,'resize',updateScrollbar);updateScrollbar();}
+ cleanups.push(()=>document.documentElement.style.removeProperty('--sk-scrollbar-phase'));
  const scrollEngine=reduced?null:new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),touchMultiplier:1.5,prevent:node=>Boolean(node.closest?.('dialog'))});
  const scrollTo=(target,immediate=false)=>{if(scrollEngine)scrollEngine.scrollTo(target,{immediate,force:true});else if(typeof target==='number')window.scrollTo({top:target,behavior:immediate||reduced?'instant':'smooth'});else target?.scrollIntoView({behavior:immediate||reduced?'instant':'smooth'});};
  let loaded=seoirkHasEntered;seoirkHasEntered=true;
