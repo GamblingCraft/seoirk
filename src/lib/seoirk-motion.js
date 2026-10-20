@@ -1,4 +1,4 @@
-import {seoirkServices,seoirkProjects} from './seoirk-content';
+import {seoirkServices,seoirkPortfolioGroups} from './seoirk-content';
 import {createSeoirkDisplacement} from './seoirk-displacement';
 import Lenis from 'lenis';
 let seoirkHasEntered=false;
@@ -50,19 +50,24 @@ export function startSeoirkMotion({pathname,navigate}) {
  function endDrag(){if(!drag)return;if(drag.locked){const {pages}=sliderMetrics();if(drag.dx<-20)slide=Math.min(pages,slide+1);if(drag.dx>20)slide=Math.max(0,slide-1);suppressCardClick=performance.now()+350;}drag=null;track?.classList.remove('sk-dragging');updateSlider();}
  on(window,'pointerup',endDrag);on(window,'pointercancel',endDrag);on(track,'dragstart',e=>e.preventDefault());updateSlider();
  // Portfolio displacement is native WebGL; reduced-motion/mobile retain regular images.
- let selectedProject=0;const fallback=$('#sk-preview-fallback');const displacement=!reduced&&fallback?createSeoirkDisplacement($('#sk-project-canvas'),seoirkProjects.map(p=>p.image),fallback):null;
- $$('[data-project]').forEach(el=>{on(el,'pointerenter',()=>{selectedProject=Number(el.dataset.project);const project=seoirkProjects[selectedProject];if(fallback){fallback.src=project.image;fallback.alt=`Концепция: ${project.title}`;}const badge=$('.sk-preview-badge');if(badge)badge.textContent=`ПЛЕЙСХОЛДЕР / ${String(selectedProject+1).padStart(2,'0')}`;displacement?.transitionTo(selectedProject,performance.now());});on(el,'focus',()=>{selectedProject=Number(el.dataset.project);if(fallback)fallback.src=seoirkProjects[selectedProject].image;displacement?.transitionTo(selectedProject,performance.now());});});
- on($('#sk-preview-open'),'click',()=>go(`/projects/${seoirkProjects[selectedProject].slug}/`));
+ const portfolios=$$('[data-portfolio]').map(section=>{
+  const projects=seoirkPortfolioGroups[section.dataset.portfolio];if(!projects)return null;
+  const fallback=section.querySelector('[data-portfolio-image]'),canvas=section.querySelector('[data-portfolio-canvas]'),open=section.querySelector('[data-portfolio-open]'),badge=section.querySelector('.sk-preview-badge');
+  let selected=0;const displacement=!reduced&&fallback?createSeoirkDisplacement(canvas,projects.map(p=>p.image),fallback):null;
+  const select=index=>{selected=index;const project=projects[index];fallback.src=project.image;fallback.alt=`Концепция: ${project.title}`;badge.textContent=`ПЛЕЙСХОЛДЕР / ${String(index+1).padStart(2,'0')}`;open.setAttribute('aria-label',`Открыть проект: ${project.title}`);displacement?.transitionTo(index,performance.now());};
+  section.querySelectorAll('[data-project]').forEach(el=>{on(el,'pointerenter',()=>select(Number(el.dataset.project)));on(el,'focus',()=>select(Number(el.dataset.project)));});
+  on(open,'click',()=>go(`/projects/${projects[selected].slug}/`));return displacement;
+ }).filter(Boolean);
  const separators=$$('.sk-elastic-divider').map(el=>({el,path:el.querySelector('path'),x:0,v:0,target:0,width:0}));
  separators.forEach(item=>{on(item.el,'pointermove',e=>{if(reduced)return;const r=item.el.getBoundingClientRect();const dy=e.clientY-r.top-r.height/2;item.target=Math.abs(dy)<60?-Math.sign(dy)*(1-Math.abs(dy)/60)*60:0;});on(item.el,'pointerleave',()=>{item.target=0;});});
  const wave=$('.sk-footer-wave');const wavePaths=wave?[...wave.querySelectorAll('path')]:[];let waveTarget=0,waveValue=0,waveVelocity=0;
  on(wave,'pointermove',e=>{if(reduced)return;const r=wave.getBoundingClientRect();const y=e.clientY-r.top-r.height/2;waveTarget=Math.abs(y)<100?-Math.sign(y)*(1-Math.abs(y)/100)*80:0;});on(wave,'pointerleave',()=>{waveTarget=0;});
  const orbit=$('.sk-orbit-scene'),orbitWrap=$('.sk-orbit-wrap');
  on(orbitWrap,'pointermove',e=>{if(reduced||e.pointerType!=='mouse')return;const r=orbitWrap.getBoundingClientRect(),x=((e.clientX-r.left)/r.width-.5)*2,y=((e.clientY-r.top)/r.height-.5)*2;orbit.style.transform=`${innerWidth<640?'scale(.7) ':''}rotateX(${-19*y}deg) rotateY(${19*x}deg)`;});on(orbitWrap,'pointerleave',()=>{orbit.style.transform='';});
- function resize(){updateSlider();for(const item of separators){item.width=item.el.querySelector('svg').clientWidth;const svg=item.path.ownerSVGElement;svg.setAttribute('viewBox',`0 0 ${item.width} 200`);item.path.setAttribute('d',`M 0 100 Q ${item.width/2} 100 ${item.width} 100`);}displacement?.resize();}
+ function resize(){updateSlider();for(const item of separators){item.width=item.el.querySelector('svg').clientWidth;const svg=item.path.ownerSVGElement;svg.setAttribute('viewBox',`0 0 ${item.width} 200`);item.path.setAttribute('d',`M 0 100 Q ${item.width/2} 100 ${item.width} 100`);}portfolios.forEach(portfolio=>portfolio.resize());}
  on(window,'resize',resize,{passive:true});resize();
  let frame,prior=performance.now();let waveVisible=false;const waveObserver=wave?new IntersectionObserver(e=>{waveVisible=e[0].isIntersecting;},{rootMargin:'100px'}):null;waveObserver?.observe(wave);cleanups.push(()=>waveObserver?.disconnect());
- function tick(now){const dt=Math.min(.035,(now-prior)/1000);prior=now;scrollEngine?.raf(now);displacement?.tick(now);if(header?.classList.contains('sk-is-fixed')&&now-lastActivity>2500)resetHeader();
+ function tick(now){const dt=Math.min(.035,(now-prior)/1000);prior=now;scrollEngine?.raf(now);portfolios.forEach(portfolio=>portfolio.tick(now));if(header?.classList.contains('sk-is-fixed')&&now-lastActivity>2500)resetHeader();
   if(!reduced){for(const item of separators){if(Math.abs(item.x-item.target)>.01||Math.abs(item.v)>.01){const a=(item.target-item.x)*300-item.v*4;item.v+=a*dt;item.x+=item.v*dt;item.path.setAttribute('d',`M 0 100 Q ${item.width/2} ${100+item.x} ${item.width} 100`);}}}
   if(waveVisible||reduced){waveVelocity+=((waveTarget-waveValue)*300-waveVelocity*10)*dt;waveValue+=waveVelocity*dt;for(let line=0;line<wavePaths.length;line++){const points=[],amplitude=50+24*(2.5-Math.abs(line-2.5));for(let step=0;step<=100;step++){const x=step/100,envelope=x>=.25&&x<=.75?Math.sin((x-.25)/.5*Math.PI):0;const y=250+Math.sin(x*(1+.15*line)*Math.PI*2+(reduced?0:now/1000*1.5)+.8*line)*amplitude*envelope+waveValue*Math.sin(x*Math.PI);points.push(`${step},${y.toFixed(2)}`);}wavePaths[line].setAttribute('d',`M${points.join(' L')}`);}}
   if(!signal.aborted)frame=requestAnimationFrame(tick);
@@ -76,5 +81,5 @@ export function startSeoirkMotion({pathname,navigate}) {
   on(form,'submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));let invalid=null;for(const name of ['name','contact','message']){const el=form.elements[name];const valid=String(data[name]||'').trim().length>0;el.closest('.sk-field').classList.toggle('sk-invalid',!valid);el.setAttribute('aria-invalid',String(!valid));if(!valid&&!invalid)invalid=el;}const status=$('.sk-form-status');if(invalid){status.textContent='Заполните имя, контакт и описание задачи.';status.classList.add('sk-error');invalid.focus();return;}status.classList.remove('sk-error');try{sessionStorage.setItem('seoirk-brief',JSON.stringify(data));}catch{}const text=`SEOIRK — бриф проекта\n\nИмя: ${data.name}\nКонтакт: ${data.contact}\n\nЗадача:\n${data.message}\n\nБриф сохранён локально. Сообщение не отправлялось.`;const blob=new Blob(['\ufeff'+text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='seoirk-project-brief.txt';a.click();later(()=>URL.revokeObjectURL(url),1500);status.textContent='Бриф сохранён в файл. Данные не отправлялись.';});
  }
  function clock(){const el=$('#sk-local-time');if(!el)return;const [hours,minutes]=new Intl.DateTimeFormat('ru-RU',{timeZone:'Asia/Irkutsk',hour:'2-digit',minute:'2-digit'}).format(new Date()).split(':');el.innerHTML=`${hours}<span>:</span>${minutes}`;}clock();const clockInterval=setInterval(clock,1000);cleanups.push(()=>clearInterval(clockInterval));
- return ()=>{controller.abort();timers.forEach(clearTimeout);cleanups.forEach(fn=>fn());displacement?.destroy();scrollEngine?.destroy();resetHeader();if(drawer?.open)drawer.close();if(reel?.open)reel.close();body.classList.remove('sk-modal-open','sk-loading');if(loader)loader.hidden=true;};
+ return ()=>{controller.abort();timers.forEach(clearTimeout);cleanups.forEach(fn=>fn());portfolios.forEach(portfolio=>portfolio.destroy());scrollEngine?.destroy();resetHeader();if(drawer?.open)drawer.close();if(reel?.open)reel.close();body.classList.remove('sk-modal-open','sk-loading');if(loader)loader.hidden=true;};
 }

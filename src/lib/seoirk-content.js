@@ -14,3 +14,14 @@ export const seoirkProjects = [
  {slug:'brand',title:'Новый бренд',type:'IDENTITY / DIGITAL',image:'/assets/project-06.svg',description:'Концепция цифрового присутствия бренда. Визуальный характер, типографика и продукт.'},
  {slug:'local-seo',title:'Локальное SEO',type:'LOCAL / SEARCH',image:'/assets/project-07.svg',description:'Плейсхолдер кейса локального продвижения. Здесь будут реальные результаты и описание проекта.'},
 ];
+export const seoirkSeoProjects = [
+ {slug:'seo-store',title:'SEO интернет-магазина',type:'SEO / E-COMMERCE',image:'/assets/seo-project-01.svg',description:'Плейсхолдер кейса продвижения интернет-магазина. Здесь появятся семантика каталога, выполненные работы и подтверждённые результаты.'},
+ {slug:'seo-corporate',title:'Продвижение услуг',type:'SEO / SERVICES',image:'/assets/seo-project-02.svg',description:'Плейсхолдер SEO-кейса сайта услуг: посадочные страницы, коммерческие запросы и динамика заявок.'},
+ {slug:'seo-medicine',title:'Медицинская тематика',type:'SEO / MEDICINE',image:'/assets/seo-project-03.svg',description:'Плейсхолдер кейса поискового продвижения медицинского центра. Реальные данные и описание работ добавим позже.'},
+ {slug:'seo-estate',title:'Недвижимость в поиске',type:'SEO / REAL ESTATE',image:'/assets/seo-project-04.svg',description:'Плейсхолдер SEO-кейса в недвижимости: структура разделов, региональная семантика и развитие поисковой видимости.'},
+ {slug:'seo-local-business',title:'Локальное продвижение',type:'LOCAL / SEARCH',image:'/assets/seo-project-05.svg',description:'Плейсхолдер локального SEO-кейса. Здесь будут география проекта, выполненные работы и подтверждённые результаты.'},
+ {slug:'seo-content',title:'Контентная стратегия',type:'SEO / CONTENT',image:'/assets/seo-project-06.svg',description:'Плейсхолдер кейса контентного продвижения: исследование спроса, структура материалов и поисковая аналитика.'},
+ {slug:'seo-technical',title:'Техническое SEO',type:'SEO / TECHNICAL',image:'/assets/seo-project-07.svg',description:'Плейсхолдер технического SEO-кейса: аудит, исправление ошибок индексации и контроль качества сайта.'},
+];
+export const seoirkPortfolioGroups={web:seoirkProjects,seo:seoirkSeoProjects};
+export const seoirkAllProjects=[...seoirkProjects,...seoirkSeoProjects];
