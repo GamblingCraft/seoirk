@@ -162,3 +162,51 @@ html::-webkit-scrollbar-corner{background:#0a0b10}
 .sk-loader-exit .sk-loader-logo{transform:translateY(-24px)}
 .sk-loader-exit .sk-loader-caption{transform:translateY(24px)}
 @media(max-height:550px){#sk-preloader{gap:14px}.sk-loader-logo{width:140px}.sk-loader-orbit{width:32vh}.sk-loader-caption{font-size:10px}}
+
+/* Studio: an editorial photograph paired with a quiet text column. */
+.sk-studio-editorial .sk-section-heading h2{grid-column:3/12}
+.sk-studio-layout{margin-top:64px;align-items:start}
+.sk-studio-photo{grid-column:2/7;margin:0}
+.sk-studio-photo>img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.sk-studio-photo figcaption{font-size:11px;line-height:1.4;color:#8d8d8d;letter-spacing:.01em;margin-top:16px}
+.sk-studio-story{grid-column:8/12;padding-top:48px}
+.sk-studio-location{display:block;font-size:10px;letter-spacing:.08em;line-height:1.5;color:#969696}
+.sk-studio-story>p{font-size:16px;line-height:1.6;color:#a3a3a3;letter-spacing:-.02em;margin:22px 0 0;max-width:410px}
+.sk-studio-story>.sk-studio-lead{font-size:clamp(25px,2.5vw,38px);line-height:1.1;letter-spacing:-.045em;color:#eee;margin-top:38px}
+.sk-studio-principle{border-top:1px solid #2a2a2a;margin-top:36px;padding-top:22px}
+.sk-studio-principle>span{font-size:10px;letter-spacing:.08em;color:#969696}
+.sk-studio-principle>p{font-size:19px;line-height:1.3;margin:16px 0 0;color:#ddd}
+.sk-studio-story>.sk-text-link{margin-top:36px;font-size:14px}
+#sk-footer>.sk-footer-top{border-top:1px solid #292929;padding:26px 0 30px}
+#sk-footer>.sk-footer-top>span:last-child{grid-column:10/13;justify-self:end;text-align:right}
+@media(max-width:1023px){
+ .sk-studio-editorial .sk-section-heading h2{grid-column:1/5}
+ .sk-studio-layout{gap:28px;margin-top:40px}
+ .sk-studio-photo{grid-column:1/3}
+ .sk-studio-story{grid-column:3/5;padding-top:0}
+ .sk-studio-story>.sk-studio-lead{margin-top:24px;font-size:27px}
+ .sk-studio-story>p{font-size:14px}
+ .sk-studio-principle{margin-top:24px;padding-top:18px}
+ .sk-studio-principle>p{font-size:17px}
+ #sk-footer>.sk-footer-top>span:last-child{grid-column:4/5}
+}
+@media(max-width:639px){
+ .sk-studio-editorial .sk-section-heading h2{font-size:clamp(25px,7.2vw,38px)}
+ .sk-studio-layout{gap:32px;margin-top:32px}
+ .sk-studio-photo,.sk-studio-story{grid-column:1/5}
+ .sk-studio-photo>img{aspect-ratio:4/5}
+ .sk-studio-photo figcaption{font-size:10px;margin-top:12px}
+ .sk-studio-story>.sk-studio-lead{font-size:29px}
+ .sk-studio-story>p{font-size:15px;max-width:none}
+ .sk-studio-story>.sk-text-link{margin-top:28px}
+ #sk-footer>.sk-footer-top{grid-template-columns:1fr auto;gap:20px;padding:24px 0}
+ #sk-footer>.sk-footer-top>span:first-child{grid-column:1;grid-row:1}
+ #sk-footer>.sk-footer-top>button{grid-column:2;grid-row:1}
+ #sk-footer>.sk-footer-top>span:last-child{display:block;grid-column:1/3;grid-row:2;justify-self:start;text-align:left;font-size:9px}
+}
+
+@media(min-width:1024px){
+ .sk-projects .sk-section-heading h2{grid-column:8/12;text-align:right}
+ .sk-projects-mirrored .sk-section-heading h2{grid-column:2/6;text-align:right}
+ .sk-projects-layout{margin-top:44px}
+}

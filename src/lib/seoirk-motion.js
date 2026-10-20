@@ -73,8 +73,6 @@ export function startSeoirkMotion({pathname,navigate}) {
  separators.forEach(item=>{on(item.el,'pointermove',e=>{if(reduced)return;const r=item.el.getBoundingClientRect();const dy=e.clientY-r.top-r.height/2;item.target=Math.abs(dy)<60?-Math.sign(dy)*(1-Math.abs(dy)/60)*60:0;});on(item.el,'pointerleave',()=>{item.target=0;});});
  const wave=$('.sk-footer-wave');const wavePaths=wave?[...wave.querySelectorAll('path')]:[];let waveTarget=0,waveValue=0,waveVelocity=0;
  on(wave,'pointermove',e=>{if(reduced)return;const r=wave.getBoundingClientRect();const y=e.clientY-r.top-r.height/2;waveTarget=Math.abs(y)<100?-Math.sign(y)*(1-Math.abs(y)/100)*80:0;});on(wave,'pointerleave',()=>{waveTarget=0;});
- const orbit=$('.sk-orbit-scene'),orbitWrap=$('.sk-orbit-wrap');
- on(orbitWrap,'pointermove',e=>{if(reduced||e.pointerType!=='mouse')return;const r=orbitWrap.getBoundingClientRect(),x=((e.clientX-r.left)/r.width-.5)*2,y=((e.clientY-r.top)/r.height-.5)*2;orbit.style.transform=`${innerWidth<640?'scale(.7) ':''}rotateX(${-19*y}deg) rotateY(${19*x}deg)`;});on(orbitWrap,'pointerleave',()=>{orbit.style.transform='';});
  function resize(){updateSlider();for(const item of separators){item.width=item.el.querySelector('svg').clientWidth;const svg=item.path.ownerSVGElement;svg.setAttribute('viewBox',`0 0 ${item.width} 200`);item.path.setAttribute('d',`M 0 100 Q ${item.width/2} 100 ${item.width} 100`);}portfolios.forEach(portfolio=>portfolio.resize());}
  on(window,'resize',resize,{passive:true});resize();
  let frame,prior=performance.now();let waveVisible=false;const waveObserver=wave?new IntersectionObserver(e=>{waveVisible=e[0].isIntersecting;},{rootMargin:'100px'}):null;waveObserver?.observe(wave);cleanups.push(()=>waveObserver?.disconnect());
