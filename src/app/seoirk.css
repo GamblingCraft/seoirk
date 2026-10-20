@@ -325,3 +325,13 @@ html::-webkit-scrollbar-corner{background:#0a0b10}
  .sk-hero-direction-name{padding-top:16px}
 }
 @media(prefers-reduced-motion:reduce){.sk-menu-dialog,.sk-menu-main>nav>a>span,.sk-menu-main>nav>a>i,.sk-menu-main>aside,.sk-menu-toggle>i>span{transition:none}.sk-menu-main>nav>a>span{transform:none}}
+
+.sk-footer-legal{display:flex;align-items:center;justify-content:space-between;gap:32px;border-top:1px solid #292929;padding:26px 0 30px}
+.sk-footer-signature{margin:0;color:#969696;font-size:12px;line-height:1.5;letter-spacing:0;text-transform:none}
+.sk-footer-legal>.sk-to-top{flex-shrink:0;min-height:44px}
+@media(max-width:639px){
+ .sk-footer-brand{display:block;margin:40px auto 0}
+ .sk-footer-legal{align-items:flex-start;gap:24px;padding:22px 0}
+ .sk-footer-signature{font-size:11px;max-width:235px}
+ .sk-footer-legal>.sk-to-top{min-height:32px;font-size:10px}
+}
