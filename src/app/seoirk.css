@@ -108,7 +108,7 @@ input,textarea{text-transform:none}
 .sk-header>.sk-brand{flex:0 0 130px}
 .sk-header nav{display:flex;align-items:center;gap:36px;margin-left:auto}
 .sk-header nav a,.sk-header-phone{font-size:13px;font-weight:600;letter-spacing:.01em;white-space:nowrap}
-.sk-header nav a{position:relative;padding:8px 0}
+.sk-header nav a{position:relative;padding:8px 0;text-transform:uppercase}
 .sk-header nav a:after{content:'';position:absolute;bottom:2px;left:0;right:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
 .sk-header nav a:hover:after,.sk-header nav a:focus-visible:after{transform:scaleX(1)}
 .sk-header-phone{font-variant-numeric:tabular-nums;padding:8px 0}
