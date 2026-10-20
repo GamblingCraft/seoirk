@@ -20,3 +20,27 @@
 .sk-roll-word{display:inline-flex;white-space:nowrap}
 .sk-price-row:focus-visible .sk-roll-char>span:first-child{transform:translateY(0)}
 .sk-price-row:focus-visible .sk-roll-char>span:last-child{transform:translateY(110%)}
+
+/* SEOIRK typographic convention: uppercase display copy, original form values. */
+body{text-transform:uppercase}
+button{ text-transform:inherit }
+input,textarea{text-transform:none}
+.sk-brand{letter-spacing:-.07em}
+.sk-project-item{font-size:clamp(28px,3.55vw,54px)}
+.sk-footer-cta{font-size:clamp(32px,3.65vw,58px)}
+@media(min-width:1024px){
+ .sk-projects-mirrored .sk-project-item{font-size:clamp(26px,2.95vw,46px)}
+}
+@media(max-width:1023px){
+ .sk-project-item{font-size:22px}
+ .sk-footer-cta{font-size:42px}
+}
+@media(max-width:639px){
+ .sk-hero h1{font-size:clamp(26px,7.8vw,44px)}
+ .sk-project-item{font-size:clamp(13px,3.8vw,19px)}
+ .sk-price-row h3{font-size:clamp(17px,5.2vw,23px)}
+ .sk-footer-cta{font-size:clamp(28px,7.8vw,44px)}
+ .sk-device-front .sk-device-heading{font-size:19px}
+ .sk-device-heading,.sk-device-back .sk-device-heading{font-size:23px}
+ .sk-loader-logo{left:auto;right:24px}
+}
