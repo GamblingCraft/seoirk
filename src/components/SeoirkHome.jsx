@@ -6,13 +6,11 @@ import SeoirkPortfolio from './SeoirkPortfolio';
 import {seoirkProjects,seoirkSeoProjects} from '@/lib/seoirk-content';
 export default function SeoirkHome(){return (<div id="sk-home-view">
       <section className="sk-hero sk-grid">
-        <div className="sk-hero-intro sk-reveal" style={{"--delay": "100ms"}}>
-          <button className="sk-showreel sk-magnet" id="sk-open-reel" aria-label="Смотреть подход к работе"><span className="sk-play-ring"><svg viewBox="0 0 80 80" aria-hidden="true"><circle className="sk-ring-bg" cx="40" cy="40" r="38"></circle><circle className="sk-ring-arc" cx="40" cy="40" r="38"></circle></svg><svg className="sk-play-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3 17 10 6 17Z"></path></svg></span><span className="sk-eyebrow">ОТ ИДЕИ<br />ДО РЕЗУЛЬТАТА</span></button>
-          <span className="sk-eyebrow sk-hero-timestamp">WEB × SEO</span>
-        </div>
         <h1 className="sk-reveal" style={{"--delay": "200ms"}}><span>Создаём сайты,</span><br />которые приводят<br />клиентов</h1>
-        <div className="sk-hero-meta sk-reveal" style={{"--delay": "300ms"}}><span>WEB</span><small>РАЗРАБОТКА<br />САЙТОВ</small></div>
-        <div className="sk-hero-meta sk-reveal" style={{"--delay": "400ms"}}><span>SEO</span><small>ПРОДВИЖЕНИЕ<br />В ПОИСКЕ</small></div>
+        <div className="sk-hero-directions sk-reveal" style={{"--delay":"300ms"}}>
+          <Link className="sk-hero-direction sk-hero-web" href="/#sk-services" data-nav=""><span className="sk-hero-direction-name">WEB<span aria-hidden="true">↗</span></span><span className="sk-hero-direction-copy">Разработка<br />сайтов</span></Link>
+          <Link className="sk-hero-direction sk-hero-seo" href="/#sk-seo-projects" data-nav=""><span className="sk-hero-direction-name">SEO<span aria-hidden="true">↗</span></span><span className="sk-hero-direction-copy">Продвижение<br />в поиске</span></Link>
+        </div>
       </section>
       <section className="sk-banner sk-reveal" aria-label="Разработка и продвижение цифровых продуктов">
         <div className="sk-banner-topline sk-eyebrow"><span>SEOIRK — DIGITAL GROWTH</span><span>ДИЗАЙН. ТЕХНОЛОГИИ. РОСТ.</span></div>

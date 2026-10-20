@@ -235,3 +235,16 @@ html::-webkit-scrollbar-corner{background:#0a0b10}
 @keyframes sk-studio-signal{0%,7%,18%,52%,100%{opacity:0;clip-path:inset(0);transform:translateX(0)}3%{opacity:.35;clip-path:inset(22% 0 70%);transform:translateX(-5px)}12%{opacity:.25;clip-path:inset(64% 0 26%);transform:translateX(5px)}49%{opacity:.2;clip-path:inset(42% 0 55%);transform:translateX(-3px)}}
 @keyframes sk-studio-photo-pulse{0%,8%,18%,100%{filter:grayscale(0) blur(0)}4%,13%{filter:grayscale(0) blur(.6px)}}
 @media(prefers-reduced-motion:reduce){.sk-studio-frame>img,.sk-studio-frame:hover>img{animation:none;transform:none;transition:none}.sk-studio-frame:before,.sk-studio-frame:after{display:none}}
+
+/* Two clear service directions replace the hero showreel. */
+.sk-hero-directions{grid-column:10/13;align-self:end;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.sk-hero-direction{--sk-direction-accent:#1ccecb;display:flex;flex-direction:column;gap:18px;border-top:1px solid var(--sk-direction-accent);padding:18px 0 4px;min-width:0;text-transform:uppercase;transition:border-color .3s}
+.sk-hero-seo{--sk-direction-accent:#b69acb}
+.sk-hero-direction-name{display:flex;align-items:start;justify-content:space-between;gap:8px;color:var(--sk-direction-accent);font-size:clamp(28px,2.65vw,44px);line-height:1;letter-spacing:-.065em}
+.sk-hero-direction-name>span{font-size:18px;line-height:1;letter-spacing:0;transition:transform .3s var(--ease)}
+.sk-hero-direction-copy{color:#c5c5c5;font-size:11px;line-height:1.4;letter-spacing:.025em;font-weight:500}
+.sk-hero-direction:hover{border-color:#eee}
+.sk-hero-direction:hover .sk-hero-direction-name>span{transform:translate(3px,-3px)}
+@media(max-width:1023px){.sk-hero-directions{grid-column:2/5;grid-row:2;gap:28px}.sk-hero-direction-name{font-size:38px}.sk-hero-direction-copy{font-size:12px}}
+@media(max-width:639px){.sk-hero-directions{grid-column:1/5;gap:24px;margin-top:8px}.sk-hero-direction{gap:14px;padding-top:16px}.sk-hero-direction-name{font-size:36px}.sk-hero-direction-copy{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.sk-hero-direction,.sk-hero-direction-name>span{transition:none}.sk-hero-direction:hover .sk-hero-direction-name>span{transform:none}}
