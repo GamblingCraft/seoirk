@@ -21,11 +21,14 @@
 .sk-price-row:focus-visible .sk-roll-char>span:first-child{transform:translateY(0)}
 .sk-price-row:focus-visible .sk-roll-char>span:last-child{transform:translateY(110%)}
 
-/* SEOIRK typographic convention: uppercase display copy, original form values. */
-body{text-transform:uppercase}
+/* Uppercase is reserved for headings and interactive navigation items. */
+body{text-transform:none}
+h1,h2,h3,h4,h5,h6,
+.sk-project-item,.sk-nav-contact,.sk-footer-nav>a,
+.sk-footer-cta,.sk-text-link,.sk-drawer-cta,.sk-to-top,
+.sk-device-heading,.sk-device-project{text-transform:uppercase}
 button{ text-transform:inherit }
 input,textarea{text-transform:none}
-.sk-brand{letter-spacing:-.07em}
 .sk-project-item{font-size:clamp(28px,3.55vw,54px)}
 .sk-footer-cta{font-size:clamp(32px,3.65vw,58px)}
 @media(min-width:1024px){
