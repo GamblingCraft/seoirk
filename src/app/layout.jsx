@@ -2,7 +2,7 @@ import 'lenis/dist/lenis.css';
 import './seoirk.css';
 import {SeoirkHeader,SeoirkFooter,SeoirkMotionChrome} from '@/components/SeoirkChrome';
 import SeoirkExperience from '@/components/SeoirkExperience';
-import {seoirkSans,seoirkBrand} from './seoirk-fonts';
+import {seoirkSans,seoirkBrand,seoirkEyebrow} from './seoirk-fonts';
 export const metadata = {
   metadataBase:new URL('https://seoirk.ru'),
   title:{default:'SEOIRK — разработка сайтов и SEO-продвижение',template:'%s — SEOIRK'},
@@ -13,5 +13,5 @@ export const metadata = {
 };
 export const viewport={themeColor:'#000000',width:'device-width',initialScale:1};
 export default function SeoirkRootLayout({children}){
-  return <html lang="ru" className={`${seoirkSans.variable} ${seoirkBrand.variable}`}><body><a className="sk-skip-link" href="#sk-main">Перейти к содержимому</a><SeoirkMotionChrome/><SeoirkHeader/><main id="sk-main">{children}</main><SeoirkFooter/><SeoirkExperience/></body></html>;
+  return <html lang="ru" className={`${seoirkSans.variable} ${seoirkBrand.variable} ${seoirkEyebrow.variable}`}><body><a className="sk-skip-link" href="#sk-main">Перейти к содержимому</a><SeoirkMotionChrome/><SeoirkHeader/><main id="sk-main">{children}</main><SeoirkFooter/><SeoirkExperience/></body></html>;
 }

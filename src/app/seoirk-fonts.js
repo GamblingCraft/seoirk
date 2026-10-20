@@ -1,4 +1,4 @@
-import {Inter,Cormorant_Garamond} from 'next/font/google';
+import {Inter,Cormorant_Garamond,Roboto_Condensed} from 'next/font/google';
 
 // The reference uses Inter; include the Cyrillic subset explicitly.
 export const seoirkSans=Inter({
@@ -17,4 +17,13 @@ export const seoirkBrand=Cormorant_Garamond({
   display:'swap',
   variable:'--font-seoirk-brand',
   fallback:['Georgia','serif'],
+});
+
+export const seoirkEyebrow=Roboto_Condensed({
+  subsets:['latin','cyrillic'],
+  weight:'400',
+  style:'normal',
+  display:'swap',
+  variable:'--font-seoirk-eyebrow',
+  fallback:['Arial Narrow','Arial','sans-serif'],
 });

@@ -49,3 +49,52 @@ input,textarea{text-transform:none}
 }
 
 .sk-project-item .sk-roll-text{display:inline;white-space:normal}
+
+/* A dedicated vertical rail for section eyebrows, reading bottom to top. */
+.sk-section-heading,.sk-about-heading{position:relative}
+.sk-section-heading>.sk-section-eyebrow,
+.sk-about-heading>.sk-section-eyebrow:first-child{
+ display:block;position:absolute;left:24px;top:0;right:auto;
+ width:max-content;margin:0;padding:0;
+ font-family:var(--font-seoirk-eyebrow);font-weight:400;
+ font-size:clamp(14px,1.5vw,24px);line-height:1;
+ letter-spacing:.14em;color:#969696;text-align:left;
+ writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap;
+ transform:rotate(180deg);transform-origin:center;
+}
+@media(min-width:1024px){
+ .sk-projects:not(.sk-projects-mirrored) .sk-project-list{padding-left:44px}
+ .sk-projects-mirrored .sk-section-heading>.sk-section-eyebrow{left:auto;right:24px}
+ .sk-projects-mirrored .sk-project-list{padding-right:44px}
+}
+@media(max-width:1023px){
+ .sk-projects,.sk-services,.sk-behavior,.sk-prices,.sk-about{padding-left:48px}
+ .sk-section-heading>.sk-section-eyebrow,
+ .sk-about-heading>.sk-section-eyebrow:first-child{left:-28px;right:auto;font-size:14px}
+}
+@media(max-width:639px){
+ .sk-section-heading>.sk-section-eyebrow,
+ .sk-about-heading>.sk-section-eyebrow:first-child{font-size:12px;letter-spacing:.13em}
+ .sk-projects .sk-section-heading h2{grid-column:1/5}
+}
+
+/* Script wordmark, supplied as a real transparent image rather than live text. */
+.sk-logo-image{display:block;width:100%;height:auto;object-fit:contain}
+.sk-brand{width:160px;font-size:0;line-height:0;letter-spacing:0}
+.sk-header>.sk-brand{width:130px}
+.sk-about-heading>div>.sk-brand{width:270px}
+.sk-footer-brand{width:240px}
+.sk-loader-logo{width:210px}
+.sk-device-logo{display:block;width:112px}
+.sk-screen-nav b{display:block;width:110px}
+.sk-orbit-content b{display:block;width:280px}
+.sk-clock-card .sk-brand{width:110px}
+@media(max-width:1023px){.sk-about-heading>div>.sk-brand{width:210px}}
+@media(max-width:639px){
+ .sk-header>.sk-brand{width:112px}
+ .sk-about-heading>div>.sk-brand{width:180px}
+ .sk-footer-brand{width:190px}
+ .sk-loader-logo{width:150px}
+ .sk-device-logo,.sk-screen-nav b{width:85px}
+ .sk-orbit-content b{width:230px}
+}

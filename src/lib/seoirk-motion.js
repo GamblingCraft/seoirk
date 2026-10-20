@@ -51,7 +51,7 @@ export function startSeoirkMotion({pathname,navigate}) {
  // Carousel: pointer gesture, vertical scroll arbitration, arrows, cyclic positions.
  const track=$('#sk-service-track'),windowEl=$('.sk-service-window');let slide=0,drag=null,suppressCardClick=0,offset=0;
  function sliderMetrics(){const card=track?.firstElementChild;const step=(card?.getBoundingClientRect().width||0)+(innerWidth<640?12:20);const max=Math.max(0,(track?.scrollWidth||0)-(windowEl?.clientWidth||0));return {step,max,pages:step?Math.ceil(max/step):0};}
- function updateSlider(){if(!track)return;const {step,max,pages}=sliderMetrics();slide=Math.min(slide,pages);offset=-Math.min(slide*step,max);track.style.transform=`translateX(${offset}px)`;const pos=$('#sk-slide-position');if(pos)pos.textContent=`${String(slide+1).padStart(2,'0')} / ${String(pages+1).padStart(2,'0')}`;}
+ function updateSlider(){if(!track)return;const {step,max,pages}=sliderMetrics();slide=Math.min(slide,pages);offset=-Math.min(slide*step,max);track.style.transform=`translateX(${offset}px)`;}
  on($('#sk-slide-prev'),'click',()=>{const {pages}=sliderMetrics();slide=slide===0?pages:slide-1;updateSlider();});on($('#sk-slide-next'),'click',()=>{const {pages}=sliderMetrics();slide=slide===pages?0:slide+1;updateSlider();});
  on(track,'pointerdown',e=>{if(e.button!==0)return;drag={x:e.clientX,y:e.clientY,offset,dx:0,locked:false};});
  on(window,'pointermove',e=>{if(!drag||!track)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(!drag.locked&&Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>5){drag=null;return;}if(Math.abs(dx)>5)drag.locked=true;if(!drag.locked)return;drag.dx=dx;track.classList.add('sk-dragging');const {max}=sliderMetrics();track.style.transform=`translateX(${Math.max(-max-40,Math.min(40,drag.offset+dx))}px)`;});
@@ -60,9 +60,9 @@ export function startSeoirkMotion({pathname,navigate}) {
  // Portfolio displacement is native WebGL; reduced-motion/mobile retain regular images.
  const portfolios=$$('[data-portfolio]').map(section=>{
   const projects=seoirkPortfolioGroups[section.dataset.portfolio];if(!projects)return null;
-  const fallback=section.querySelector('[data-portfolio-image]'),canvas=section.querySelector('[data-portfolio-canvas]'),open=section.querySelector('[data-portfolio-open]'),badge=section.querySelector('.sk-preview-badge');
+  const fallback=section.querySelector('[data-portfolio-image]'),canvas=section.querySelector('[data-portfolio-canvas]'),open=section.querySelector('[data-portfolio-open]');
   let selected=0;const displacement=!reduced&&fallback?createSeoirkDisplacement(canvas,projects.map(p=>p.image),fallback):null;
-  const select=index=>{selected=index;const project=projects[index];fallback.src=project.image;fallback.alt=`Концепция: ${project.title}`;badge.textContent=`ПЛЕЙСХОЛДЕР / ${String(index+1).padStart(2,'0')}`;open.setAttribute('aria-label',`Открыть проект: ${project.title}`);displacement?.transitionTo(index,performance.now());};
+  const select=index=>{selected=index;const project=projects[index];fallback.src=project.image;fallback.alt=`Концепция: ${project.title}`;open.setAttribute('aria-label',`Открыть проект: ${project.title}`);displacement?.transitionTo(index,performance.now());};
   section.querySelectorAll('[data-project]').forEach(el=>{on(el,'pointerenter',()=>select(Number(el.dataset.project)));on(el,'focus',()=>select(Number(el.dataset.project)));});
   on(open,'click',()=>go(`/projects/${projects[selected].slug}/`));return displacement;
  }).filter(Boolean);
