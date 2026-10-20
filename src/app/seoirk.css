@@ -17,3 +17,8 @@
  .sk-projects-mirrored .sk-project-item{text-align:left;font-size:clamp(30px,3.6vw,56px)}
  .sk-projects-mirrored .sk-project-preview{grid-column:2/6;grid-row:1}
 }
+
+.sk-price-row .sk-roll-text{display:inline;white-space:normal}
+.sk-roll-word{display:inline-flex;white-space:nowrap}
+.sk-price-row:focus-visible .sk-roll-char>span:first-child{transform:translateY(0)}
+.sk-price-row:focus-visible .sk-roll-char>span:last-child{transform:translateY(110%)}

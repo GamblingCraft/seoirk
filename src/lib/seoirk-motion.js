@@ -22,7 +22,15 @@ export function startSeoirkMotion({pathname,navigate}) {
  function revealVisible(){$$('.sk-reveal').forEach(el=>observer.observe(el));}
  if(loaded||pathname!=='/')revealVisible();cleanups.push(()=>observer.disconnect());
  // Letter rolls are created once per rendered element; a single accessible label remains.
- $$('.sk-roll-text').forEach(el=>{if(el.dataset.skRoll)return;const text=el.textContent;el.dataset.skRoll='true';el.setAttribute('aria-label',text);el.textContent='';[...text].forEach((letter,i)=>{const char=document.createElement('span');char.className='sk-roll-char';char.style.setProperty('--i',i);char.setAttribute('aria-hidden','true');for(let j=0;j<2;j++){const s=document.createElement('span');s.textContent=letter===' '?'\u00a0':letter;char.append(s);}el.append(char);});});
+ $$('.sk-roll-text').forEach(el=>{
+  if(el.dataset.skRoll)return;
+  const text=el.textContent;el.dataset.skRoll='true';el.setAttribute('aria-label',text);el.textContent='';
+  let index=0;
+  const addLetters=(parent,word)=>{for(const letter of word){const char=document.createElement('span');char.className='sk-roll-char';char.style.setProperty('--i',index++);char.setAttribute('aria-hidden','true');for(let j=0;j<2;j++){const copy=document.createElement('span');copy.textContent=letter===' '?'\u00a0':letter;char.append(copy);}parent.append(char);}};
+  if(el.hasAttribute('data-roll-wrap')){
+   for(const word of text.split(/(\s+)/)){if(!word)continue;if(/^\s+$/.test(word)){el.append(document.createTextNode(word));index+=word.length;}else{const group=document.createElement('span');group.className='sk-roll-word';addLetters(group,word);el.append(group);}}
+  }else addLetters(el,text);
+ });
  function go(href){const url=new URL(href,location.origin);if(url.origin!==location.origin)return;if(url.pathname.replace(/\/$/,'')===pathname.replace(/\/$/,'')){if(url.hash){const el=document.getElementById(decodeURIComponent(url.hash.slice(1)));if(el)scrollTo(el);history.replaceState(history.state,'',url.pathname+url.hash);}else scrollTo(0);return;}if(seoirkNavigating)return;seoirkNavigating=true;closeDrawer(true);closeReel();if(reduced){navigate(url.pathname+url.hash);return;}wipe?.classList.add('sk-active');later(()=>wipe?.classList.add('sk-covered'),20);later(()=>{scrollTo(0,true);navigate(url.pathname+url.hash);},1050);}
  on(document,'click',event=>{const a=event.target.closest('a[data-nav]');if(!a||event.metaKey||event.ctrlKey||event.altKey||event.shiftKey||event.button!==0)return;event.preventDefault();event.stopPropagation();go(a.href);},{capture:true});
  if(location.hash)later(()=>{const target=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(target)scrollTo(target,true);},150);
