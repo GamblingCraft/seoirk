@@ -44,3 +44,5 @@ input,textarea{text-transform:none}
  .sk-device-heading,.sk-device-back .sk-device-heading{font-size:23px}
  .sk-loader-logo{left:auto;right:24px}
 }
+
+.sk-project-item .sk-roll-text{display:inline;white-space:normal}
