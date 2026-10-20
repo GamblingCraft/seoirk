@@ -1,0 +1,50 @@
+# SEOIRK
+
+Сайт цифровой студии для seoirk.ru: разработка, SEO, поведенческие факторы в Яндексе, дизайн и поддержка. Все цены временно равны 1 ₽; семь проектов — явно обозначенные концепции.
+
+## Запуск
+
+```powershell
+npm install
+npm run dev
+```
+
+Адрес: http://127.0.0.1:4173
+
+```powershell
+npm run build
+npm run check
+npm run preview
+```
+
+Production-сборка находится в `out`. Команда preview раздаёт именно её. Поскольку настроен статический экспорт, `next start` не используется.
+
+## Устройство
+
+- `src/app/layout.jsx` — общий layout, Metadata API, header, footer и клиентский контроллер движения.
+- `src/app/page.jsx` — главная.
+- `src/app/contacts/page.jsx` — контакты и демоформа брифа.
+- `src/app/projects/[slug]/page.jsx` — страницы проектов, `generateStaticParams` и `generateMetadata`.
+- `src/app/not-found.jsx`, `src/app/robots.js` — стандартные файловые соглашения App Router.
+- `src/app/seoirk.css` — оформление, все собственные классы с префиксом `sk-`, keyframes с тем же префиксом.
+- `src/components/Seoirk…` — серверные компоненты контента и клиентский `SeoirkExperience`.
+- `src/lib/seoirk-content.js` — услуги, описания и плейсхолдеры проектов.
+- `src/lib/seoirk-motion.js` — анимации, жизненный цикл, карусель, модальные окна, формы и Lenis.
+- `src/lib/seoirk-displacement.js` — нативный WebGL-переход между превью с fallback на обычную картинку.
+- `public/assets` — локальные шрифты, изображения и семь SVG-концепций.
+- `scripts/seoirk-preview.mjs`, `scripts/seoirk-check.mjs` — просмотр и проверка сборки.
+
+Организация следует официальным материалам Next.js: [структура проекта](https://nextjs.org/docs/app/getting-started/project-structure), [layout и страницы](https://nextjs.org/docs/app/getting-started/layouts-and-pages), [статический экспорт](https://nextjs.org/docs/app/guides/static-exports). Серверный HTML страниц доступен до загрузки анимаций; клиентские события вынесены в отдельную границу `use client`. Слушатели, таймеры, observers и WebGL очищаются при смене маршрута.
+
+Стек: Next.js 16.4.2, React 19.2.4, Lenis 1.3.27, собственные CSS/SVG/WebGL-эффекты. Шрифты локальные. Внешние CDN и сторонние трекеры не подключены.
+
+## Перед реальным запуском
+
+1. Заменить плейсхолдеры проектов в `seoirk-content.js` и соответствующие SVG в `public/assets`.
+2. Установить реальные цены в компонентах каталога, блоке поведенческих факторов, странице проекта и drawer. Сейчас везде 1 ₽.
+3. Подключить реальные контакты и серверную отправку. Текущая форма валидирует данные, сохраняет черновик в sessionStorage и скачивает TXT-бриф; данные никуда не отправляются.
+4. Заменить демонстрационную презентацию своим видео при необходимости. Сейчас showreel-кнопка открывает собственную типографическую анимацию SEOIRK.
+5. После наполнения разрешить индексацию: изменить `metadata.robots` и `src/app/robots.js`. Сейчас демонстрационная версия закрыта от поисковой индексации.
+6. Настроить хостинг и DNS seoirk.ru отдельно. Создание приватной версии в Sites не меняет DNS домена.
+
+Контент блока поведенческих факторов включает ссылку на [справку Яндекса](https://yandex.ru/support/webmaster/ru/threat/user-actions-imitation) и не обещает гарантированные позиции.
